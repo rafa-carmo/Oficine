@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id   String @id @default(uuid())
+  email String  @unique
+  name  String
+  login String @unique
+  password String
+  isTech Boolean
+  isAdmin Boolean @default(false)
+  createdAt DateTime @default(now())
+  budgets Budget[]
+  serviceOrders ServiceOrder[]
+}
+
+model ServiceOrder {
+  id   String @id @default(uuid())
+  order String @unique
+  brand String?
+  model String?
+  defect String
+  isAuthorized Boolean
+  isReady Boolean
+  wasClosed Boolean
+  valueService Float?
+  valueMaterial Float? 
+  createdAt DateTime @default(now())
+  closedAt DateTime?
+  clientOrder Client @relation(fields: [client], references: [id])
+  client String
+  tech User? @relation(fields: [techId], references: [id])
+  techId String?
+  services Services[]
+  products Product[]
+  pictures Picture[]
+  typeId String
+  type Type @relation(fields: [typeId], references: [id])
+  budget Budget?
+}
+
+model Client {
+  id   String @id @default(uuid())
+  name String
+  email String?
+  address String?
+  createdAt DateTime @default(now())
+  serviceOrder ServiceOrder[]
+}
+model Phone {
+  id   String @id @default(uuid())
+  phone String
+  isWhats Boolean
+  owner String
+}
+
+model Services {
+  id   String @id @default(uuid())
+  title String
+  value Float
+  createdAt DateTime @default(now())
+  servicesOrders ServiceOrder[]
+}
+
+model Product {
+  id   String @id @default(uuid())
+  title String
+  value String
+  servicesOrders ServiceOrder[]
+  createdAt DateTime @default(now())
+
+}
+
+model Type {
+  id   String @id @default(uuid())
+  type String
+  description String
+  serviceOrders ServiceOrder[]
+}
+
+model Picture {
+  id   String @id @default(uuid())
+  url String
+  refer String
+  local ServiceOrder @relation(fields: [refer], references: [id])
+}
+
+model Budget {
+  id   String @id @default(uuid())
+  title String
+  description String
+  authorId String
+  serviceOrderId String
+  createdAt DateTime @default(now())
+  Order ServiceOrder @relation(fields: [serviceOrderId], references: [id])
+  author User @relation(fields: [authorId], references: [id])
+}

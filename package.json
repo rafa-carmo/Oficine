@@ -1,0 +1,25 @@
+{
+  "name": "@monospace/manu",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@monorepo/eslint-config": "*",
+    "@swc/core": "^1.2.182",
+    "@swc/jest": "^0.2.21",
+    "@types/jest": "^27.5.1",
+    "jest": "^28.1.0",
+    "postcss": "^8.4.13",
+    "tailwindcss": "^3.0.24",
+    "typescript": "^4.6.4"
+  }
+}
