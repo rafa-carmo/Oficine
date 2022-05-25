@@ -38,9 +38,18 @@ export interface ListData {
   end?: number
 }
 
+export interface EditUserData {
+  name?: string
+  email?: string
+  login?: string
+  isTech?: boolean
+  isAdmin?: boolean
+}
+
 export interface UserRepository {
   list: (data: ListData) => Promise<UserData[] | null>
   find: (id: string) => Promise<UserData | null>
   search: (data: SearchData) => Promise<UserData[] | null>
   create: (data: UserCreateData) => Promise<string | null>
+  update: (id: string, data: EditUserData) => Promise<boolean>
 }

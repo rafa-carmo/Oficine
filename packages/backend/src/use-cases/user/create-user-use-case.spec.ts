@@ -4,6 +4,7 @@ const createUserSpy = jest.fn()
 const listUsersSpy = jest.fn()
 const findUserSpy = jest.fn()
 const searchUserSpy = jest.fn()
+const updateUserSpy = jest.fn()
 
 const encryptPasswordSpy = jest.fn()
 
@@ -14,7 +15,8 @@ const createUserUseCase = new CreateUserUseCase(
     create: createUserSpy,
     list: listUsersSpy,
     find: findUserSpy,
-    search: searchUserSpy
+    search: searchUserSpy,
+    update: updateUserSpy
   },
   { encrypt: encryptPasswordSpy, decrypt: () => false },
   {
@@ -92,7 +94,8 @@ describe('Create user', () => {
         create: createUserSpy,
         list: listUsersSpy,
         find: findUserSpy,
-        search: searchUserSpy
+        search: searchUserSpy,
+        update: updateUserSpy
       },
       { encrypt: encryptPasswordSpy, decrypt: () => false },
       { create: createPhoneSpy }
@@ -117,7 +120,8 @@ describe('Create user', () => {
         create: createUserSpy,
         list: listUsersSpy,
         find: findUserSpy,
-        search: searchUserSpy
+        search: searchUserSpy,
+        update: updateUserSpy
       },
       { encrypt: encryptPasswordSpy, decrypt: () => false },
       { create: createPhoneSpy }

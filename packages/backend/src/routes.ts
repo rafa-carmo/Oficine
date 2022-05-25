@@ -1,7 +1,8 @@
 import { Router } from 'express'
 
 import { authenticate, signIn, validateToken } from './api/auth'
-import { createUser, findUser, getUsers } from './api/users'
+import { createUser, findUser, getUsers, updateUser } from './api/users'
+import { isAdmin } from './middlewares/admin'
 
 export const routes = Router()
 
@@ -78,3 +79,15 @@ routes.post('/user/validateToken', async (req, res) => {
     .then((token) => res.json(token).send())
     .catch((err) => res.json({ error: { message: err.message } }).send())
 })
+
+routes
+  .route('/user/update/:id')
+  .all(authenticate())
+  .all(isAdmin)
+  .put(async (req, res) => {
+    const data = req.body
+    const { id } = req.params
+    await updateUser(req, id, data)
+      .then(() => res.status(200).send())
+      .catch((err) => res.json({ error: { message: err.message } }).send())
+  })

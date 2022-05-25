@@ -1,5 +1,6 @@
 import { User } from '@prisma/client'
 import {
+  EditUserData,
   SearchData,
   UserCreateData,
   UserRepository
@@ -91,5 +92,18 @@ export class PrismaUserRepository implements UserRepository {
       return user.id
     }
     return null
+  }
+
+  async update(id: string, data: EditUserData) {
+    const user = await prisma.user.update({
+      where: {
+        id
+      },
+      data
+    })
+    if (user) {
+      return true
+    }
+    return false
   }
 }

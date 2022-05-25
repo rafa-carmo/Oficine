@@ -3,12 +3,14 @@ const createUserSpy = jest.fn()
 const listUsersSpy = jest.fn()
 const findUserSpy = jest.fn()
 const searchUserSpy = jest.fn()
+const updateUserSpy = jest.fn()
 
 const listUserUseCase = new ListUserUseCase({
   create: createUserSpy,
   list: listUsersSpy,
   find: findUserSpy,
-  search: searchUserSpy
+  search: searchUserSpy,
+  update: updateUserSpy
 })
 
 listUsersSpy.mockResolvedValue([
